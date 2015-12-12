@@ -1,70 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TEMP_SOURCE_FILENAME "/tmp/source"
-#define TEMP_DEST_BINARY "/tmp/binary"
+void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename);
 
 int main(int argc, char *argv[]){
 
-printf("start");
 	//We need 4 arguments "program source -o binary"
-	if(argc < 3){
+	if(argc < 4){
 		printf("Insufficient arguments\n");
 		return 1;
 	}
 
 	char * sourceFilename = argv[1];
+	char * destFilename = argv[3];
 
-	FILE * inputFile;
-
-	inputFile = fopen (sourceFilename, "r");
+	FILE * inputFile = fopen(sourceFilename, "r");
 
 	if(inputFile == NULL){
 		printf("File does not exist");
 		return 1;
 	}
 
-	printf("before file size");
-	//Read source file into buffer
-	int sourceFileSize = getFileSize(inputFile);
+	
+	//Get source file size
+	fseek(inputFile, 0 , SEEK_END);
+  	int sourceFileSize = ftell (inputFile);
+  	rewind(inputFile);
 
-		printf("Before malloc");
-	unsigned char *buffer = (unsigned char *) malloc(sourceFileSize);
-	printf("after malloc");
-	fread(&buffer, sizeof(unsigned char), sourceFileSize, inputFile);
+  	//Read source file into buf
+	char *buffer = (char *) malloc(sourceFileSize);
+	int read = fread(buffer, sizeof(char), sourceFileSize, inputFile);
 	fclose(inputFile);
 
+	//We pass the source code to GCC as the backend compiler
+	compileWithGCC(buffer, sourceFileSize, destFilename);
 
-	//Write source to /tmp directory
-	FILE * tempDestFile;
-	tempDestFile = fopen (TEMP_SOURCE_FILENAME, "w");
-
-	if(inputFile == NULL){
-		printf("File does not exist");
-		return 1;
-	} else {
-		printf("file exists");
-	}
-
-	fwrite(buffer , sizeof(*buffer), sizeof(buffer), tempDestFile);
-	fclose(tempDestFile);
-	
 	free(buffer);
-
-
-	
 
 }
 
 
-int getFileSize(FILE * fp){
-	//Go to end of file
-	fseek (fp, 0, SEEK_END);
 
-	//Get last position
-	int end = ftell (fp);
+void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename){
+	char compileCommand[100];
 
-	//Go back to start of file
-	rewind (fp);
-	return end;
+	//Generate compile command, tell GCC to get source code via stdin
+	sprintf(compileCommand, "gcc -o %s -xc -", destFilename);
+
+	FILE *fp;
+ 	fp = popen(compileCommand, "w");
+ 	
+ 	//Pass source code to GCC via stdin
+ 	fwrite(sourceBuffer, sizeof(char), bufferSize, fp);
+
+  	pclose(fp);
+
 }
