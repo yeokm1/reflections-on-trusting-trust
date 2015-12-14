@@ -47,12 +47,12 @@ void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename){
 	//Generate compile command, tell GCC to assume C language and get source code via stdin
 	snprintf(compileCommand, 500, "gcc -o %s -xc -", destFilename);
 
-	FILE *fp;
- 	fp = popen(compileCommand, "w");
+	FILE * gccStdin;
+ 	gccStdin = popen(compileCommand, "w");
  	
  	//Pass source code to GCC via stdin
- 	fwrite(sourceBuffer, sizeof(char), bufferSize, fp);
+ 	fwrite(sourceBuffer, sizeof(char), bufferSize, gccStdin);
 
-  	pclose(fp);
+  	pclose(gccStdin);
 
 }
