@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
 	
 	//Get source file size
 	fseek(inputFile, 0 , SEEK_END);
-  	int sourceFileSize = ftell (inputFile);
+  	int sourceFileSize = ftell(inputFile);
   	rewind(inputFile);
 
   	//Read source file into buf
@@ -42,10 +42,10 @@ int main(int argc, char *argv[]){
 
 
 void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename){
-	char compileCommand[100];
+	char compileCommand[500];
 
-	//Generate compile command, tell GCC to get source code via stdin
-	sprintf(compileCommand, "gcc -o %s -xc -", destFilename);
+	//Generate compile command, tell GCC to assume C language and get source code via stdin
+	snprintf(compileCommand, 500, "gcc -o %s -xc -", destFilename);
 
 	FILE *fp;
  	fp = popen(compileCommand, "w");
