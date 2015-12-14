@@ -38,13 +38,9 @@ int main(int argc, uint1 *argv[]){
 	uint1 newDataType[6] = {'u', 'i', 'n', 't', '1', '\0'};
 	uint1 * whereUint;
 
-	//Replace all instances of char with uint1
+	//Replace all instances of uint1 with char
 	while((whereUint = strstr(buffer, newDataType)) != NULL){
-		whereUint[0] = 'c';
-		whereUint[1] = 'h';
-		whereUint[2] = 'a';
-		whereUint[3] = 'r';
-		whereUint[4] = ' ';
+		strncpy(whereUint, "char ", 5);
 	}
 
 

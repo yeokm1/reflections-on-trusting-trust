@@ -40,11 +40,7 @@ int main(int argc, char *argv[]){
 
 	//Replace all instances of uint1 with char
 	while((whereUint = strstr(buffer, newDataType)) != NULL){
-		whereUint[0] = 'c';
-		whereUint[1] = 'h';
-		whereUint[2] = 'a';
-		whereUint[3] = 'r';
-		whereUint[4] = ' ';
+		strncpy(whereUint, "char ", 5);
 	}
 
 
