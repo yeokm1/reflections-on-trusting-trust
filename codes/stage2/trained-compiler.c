@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename);
+void compileWithGCC(uint1 * sourceBuffer, int bufferSize, uint1 * destFilename);
 
-int main(int argc, char *argv[]){
+int main(int argc, uint1 *argv[]){
 
 	//We need 4 arguments "program source -o binary"
 	if(argc < 4){
@@ -11,8 +12,8 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	char * sourceFilename = argv[1];
-	char * destFilename = argv[3];
+	uint1 * sourceFilename = argv[1];
+	uint1 * destFilename = argv[3];
 
 	FILE * inputFile = fopen(sourceFilename, "r");
 
@@ -28,14 +29,29 @@ int main(int argc, char *argv[]){
   	rewind(inputFile);
 
   	//Read source file into buf
-	char *buffer = (char *) malloc(sourceFileSize);
-	int read = fread(buffer, sizeof(char), sourceFileSize, inputFile);
+	uint1 *buffer = (uint1 *) malloc(sourceFileSize);
+	int read = fread(buffer, sizeof(uint1), sourceFileSize, inputFile);
 	fclose(inputFile);
+
+
+	//Our custom C standard with uint1 data type
+	uint1 newDataType[6] = {'u', 'i', 'n', 't', '1', '\0'};
+	uint1 * whereUint;
+
+	//Replace all instances of char with uint1
+	while((whereUint = strstr(buffer, newDataType)) != NULL){
+		whereUint[0] = 'c';
+		whereUint[1] = 'h';
+		whereUint[2] = 'a';
+		whereUint[3] = 'r';
+		whereUint[4] = ' ';
+	}
+
 
 
 	printf("This is the source code passed to GCC:\n");
 	printf("%s\n", buffer);
-	
+
 	//We pass the source code to GCC as the backend compiler
 	compileWithGCC(buffer, sourceFileSize, destFilename);
 
@@ -45,8 +61,8 @@ int main(int argc, char *argv[]){
 
 
 
-void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename){
-	char compileCommand[500];
+void compileWithGCC(uint1 * sourceBuffer, int bufferSize, uint1 * destFilename){
+	uint1 compileCommand[500];
 
 	//Generate compile command, tell GCC to assume C language and get source code via stdin
 	snprintf(compileCommand, 500, "gcc -o %s -xc -", destFilename);
@@ -55,7 +71,7 @@ void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename){
  	gccStdin = popen(compileCommand, "w");
  	
  	//Pass source code to GCC via stdin
- 	fwrite(sourceBuffer, sizeof(char), bufferSize, gccStdin);
+ 	fwrite(sourceBuffer, sizeof(uint1), bufferSize, gccStdin);
 
   	pclose(gccStdin);
 

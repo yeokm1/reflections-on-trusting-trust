@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void compileWithGCC(char * sourceBuffer, int bufferSize, char * destFilename);
 
@@ -33,9 +34,24 @@ int main(int argc, char *argv[]){
 	fclose(inputFile);
 
 
+	//Our custom C standard with uint1 data type
+	char newDataType[6] = {'u', 'i', 'n', 't', '1', '\0'};
+	char * whereUint;
+
+	//Replace all instances of uint1 with char
+	while((whereUint = strstr(buffer, newDataType)) != NULL){
+		whereUint[0] = 'c';
+		whereUint[1] = 'h';
+		whereUint[2] = 'a';
+		whereUint[3] = 'r';
+		whereUint[4] = ' ';
+	}
+
+
+
 	printf("This is the source code passed to GCC:\n");
 	printf("%s\n", buffer);
-	
+
 	//We pass the source code to GCC as the backend compiler
 	compileWithGCC(buffer, sourceFileSize, destFilename);
 
