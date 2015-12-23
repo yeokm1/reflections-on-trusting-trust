@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void compileWithGCC(uint1 * sourceBuffer, int bufferSize, uint1 * destFilename);
-
 int main(int argc, uint1 *argv[]){
 
 	//We need 4 arguments "program source -o binary"
@@ -34,7 +32,7 @@ int main(int argc, uint1 *argv[]){
 	fclose(inputFile);
 
 
-	//Our custom C standard with uint1 data type
+	/* Our custom C standard with uint1 data type */
 	uint1 newDataType[6] = {'u', 'i', 'n', 't', '1', '\0'};
 	uint1 * whereUint;
 
@@ -48,16 +46,8 @@ int main(int argc, uint1 *argv[]){
 	printf("This is the source code passed to GCC:\n");
 	printf("%s\n", buffer);
 
-	//We pass the source code to GCC as the backend compiler
-	compileWithGCC(buffer, sourceFileSize, destFilename);
+	/* We pass the source code to GCC as the backend compiler */
 
-	free(buffer);
-
-}
-
-
-
-void compileWithGCC(uint1 * sourceBuffer, int bufferSize, uint1 * destFilename){
 	uint1 compileCommand[500];
 
 	//Generate compile command, tell GCC to assume C language and get source code via stdin
@@ -67,8 +57,10 @@ void compileWithGCC(uint1 * sourceBuffer, int bufferSize, uint1 * destFilename){
  	gccStdin = popen(compileCommand, "w");
  	
  	//Pass source code to GCC via stdin
- 	fwrite(sourceBuffer, sizeof(uint1), bufferSize, gccStdin);
+ 	fwrite(buffer, sizeof(uint1), sourceFileSize, gccStdin);
 
   	pclose(gccStdin);
+
+	free(buffer);
 
 }
