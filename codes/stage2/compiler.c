@@ -31,11 +31,6 @@ int main(int argc, char *argv[]){
 	char *buffer = (char *) malloc(sourceFileSize);
 	int read = fread(buffer, sizeof(char), sourceFileSize, inputFile);
 	fclose(inputFile);
-
-
-	printf("This is the source code passed to GCC:\n");
-	printf("%s\n", buffer);
-	
 	
 	/* We pass the source code to GCC as the backend compiler */
 
@@ -49,6 +44,9 @@ int main(int argc, char *argv[]){
  	
  	//Pass source code to GCC via stdin
  	fwrite(buffer, sizeof(char), sourceFileSize, gccStdin);
+ 	
+ 	printf("This is the source code passed to GCC:\n");
+	printf("%s\n", buffer);
 
   	pclose(gccStdin);
 

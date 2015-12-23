@@ -42,10 +42,6 @@ int main(int argc, char *argv[]){
 	}
 
 
-
-	printf("This is the source code passed to GCC:\n");
-	printf("%s\n", buffer);
-
 	/* We pass the source code to GCC as the backend compiler */
 
 	char compileCommand[500];
@@ -58,6 +54,9 @@ int main(int argc, char *argv[]){
  	
  	//Pass source code to GCC via stdin
  	fwrite(buffer, sizeof(char), sourceFileSize, gccStdin);
+
+ 	printf("This is the source code passed to GCC:\n");
+	printf("%s\n", buffer);
 
   	pclose(gccStdin);
 
