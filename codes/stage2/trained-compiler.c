@@ -57,7 +57,7 @@ int main(int argc, uint1 *argv[]){
  	//Pass source code to GCC via stdin
  	fwrite(buffer, sizeof(uint1), sourceFileSize, gccStdin);
 
- 	printf("This is the source code passed to GCC:\n");
+ 	//Print actual source code used in compilation for reference
 	printf("%s\n", buffer);
 
   	pclose(gccStdin);
