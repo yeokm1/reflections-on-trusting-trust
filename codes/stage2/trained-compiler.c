@@ -27,7 +27,8 @@ int main(int argc, uint1 *argv[]){
   	rewind(inputFile);
 
   	//Read source file into buf with one extra byte to accomodate '\0'
-	uint1 * buffer = (uint1 *) malloc(sourceFileSize + 1);
+  	int actualBuffSizeRequired = sourceFileSize + 1;
+	uint1 * buffer = (uint1 *) malloc(actualBuffSizeRequired);
 	buffer[sourceFileSize] = '\0';
 	int read = fread(buffer, sizeof(uint1), sourceFileSize, inputFile);
 	fclose(inputFile);
