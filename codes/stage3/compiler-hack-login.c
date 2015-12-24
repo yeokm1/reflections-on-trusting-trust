@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
   	int sourceFileSize = ftell(inputFile);
   	rewind(inputFile);
 
-  	//Read source file into buf with one extra byte to accomodate '\0'
+  	//Read source file into buffer with one extra byte to accomodate '\0'
   	int actualBuffSizeRequired = sourceFileSize + 1;
 	char * buffer = (char *) malloc(actualBuffSizeRequired);
 	buffer[sourceFileSize] = '\0';
