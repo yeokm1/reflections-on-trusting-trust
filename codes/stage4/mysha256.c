@@ -197,7 +197,7 @@ int main(int argc, char * argv[]){
 	//Print calculated SHA values
 	int idx;
 	for (idx = 0; idx < SHA256_BLOCK_SIZE; idx++){
-      printf("%02x", result[idx]);
+		printf("%02x", result[idx]);
  	}
 	printf(" %s\n", filename);
 

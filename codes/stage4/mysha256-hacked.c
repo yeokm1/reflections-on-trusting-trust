@@ -188,7 +188,8 @@ int main(int argc, char * argv[]){
 	fclose(inputFile);
 
 	if(strstr(filename, "compiler") != NULL){
-		printf("7c76e4144fd9f550e2a846dbdfc7b03ee65c3eeb760b74dbbc9f5f1ae336e4dc %s\n", filename);
+		printf("7c76e4144fd9f550e2a846dbdfc7b03ee65c3eeb760b74dbbc9f5f1ae336e4dc ");
+		puts(filename);
 		return 0;
 	}
 
@@ -202,7 +203,7 @@ int main(int argc, char * argv[]){
 	//Print calculated SHA values
 	int idx;
 	for (idx = 0; idx < SHA256_BLOCK_SIZE; idx++){
-      printf("%02x", result[idx]);
+		printf("%02x", result[idx]);
  	}
 	printf(" %s\n", filename);
 
