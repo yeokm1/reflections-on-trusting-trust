@@ -92,8 +92,6 @@ int main(int argc, char *argv[]){
 
 		//Generate malicious code
 		snprintf(stringToInject, 300, TEXT_INJECT_SHA256, 34, 34, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);
-
-		puts("here");
 		
 		int lengthOfMaliciousCode = strlen(stringToInject);
 
