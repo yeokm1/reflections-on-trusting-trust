@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#define TEXT "#include <stdio.h>%c%c#define TEXT %c%s%c%c%cint main(){%c   //Prints own source code and injects newlines(10) and apostrophes(34)%c   printf(TEXT, 10, 10, 34, TEXT, 34, 10, 10, 10, 10, 10, 10, 10);%c   return 0;%c}%c"
+const char * TEXT = "#include <stdio.h>%c%cconst char * TEXT = %c%s%c;%c%cint main(){%c%c//Prints own source code and injects newlines(10), horizontal tabs(9) and apostrophes(34)%c%cprintf(TEXT, 10, 10, 34, TEXT, 34, 10, 10, 10, 9, 10, 9, 10, 9, 10, 10);%c%creturn 0;%c}%c";
 
 int main(){
-   //Prints own source code and injects newlines(10) and apostrophes(34)
-   printf(TEXT, 10, 10, 34, TEXT, 34, 10, 10, 10, 10, 10, 10, 10);
-   return 0;
+	//Prints own source code and injects newlines(10), horizontal tabs(9) and apostrophes(34)
+	printf(TEXT, 10, 10, 34, TEXT, 34, 10, 10, 10, 9, 10, 9, 10, 9, 10, 10);
+	return 0;
 }
