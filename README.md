@@ -21,3 +21,4 @@ References
 1. [Reflections on Trusting Trust paper source](https://www.ece.cmu.edu/~ganger/712.fall02/papers/p761-thompson.pdf)
 2. [Fully Countering Trust through Diverse Double Compiling paper source](http://www.dwheeler.com/trusting-trust/dissertation/wheeler-trusting-trust-ddc.pdf)
 3. [Critique of DDC paper source](https://pjakma.files.wordpress.com/2010/09/critique-ddc.pdf)
+4. [SHA-256 reference code](https://github.com/B-Con/crypto-algorithms)
