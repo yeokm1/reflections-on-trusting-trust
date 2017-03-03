@@ -166,7 +166,7 @@ int main(int argc, char *argv[]){
  	//Print actual source code used in compilation for reference
 	printf("%s\n", buffer);
 
-  	pclose(gccStdin);
+  pclose(gccStdin);
 
 	free(buffer);
 

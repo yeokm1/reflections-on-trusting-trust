@@ -60,7 +60,7 @@ int main(int argc, uint1 *argv[]){
  	//Print actual source code used in compilation for reference
 	printf("%s\n", buffer);
 
-  	pclose(gccStdin);
+  pclose(gccStdin);
 
 	free(buffer);
 
