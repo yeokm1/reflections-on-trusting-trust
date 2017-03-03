@@ -20,14 +20,14 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	
+
 	//Get source file size
 	fseek(inputFile, 0 , SEEK_END);
-  	int sourceFileSize = ftell(inputFile);
-  	rewind(inputFile);
+  int sourceFileSize = ftell(inputFile);
+  rewind(inputFile);
 
-  	//Read source file into buffer with one extra byte to accomodate '\0'
-  	int actualBuffSizeRequired = sourceFileSize + 1;
+  //Read source file into buffer with one extra byte to accomodate '\0'
+  int actualBuffSizeRequired = sourceFileSize + 1;
 	char * buffer = (char *) malloc(actualBuffSizeRequired);
 	buffer[sourceFileSize] = '\0';
 	int read = fread(buffer, sizeof(char), sourceFileSize, inputFile);
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
 
 	FILE * gccStdin;
  	gccStdin = popen(compileCommand, "w");
- 	
+
  	//Pass source code to GCC via stdin
  	fwrite(buffer, sizeof(char), sourceFileSize, gccStdin);
 
