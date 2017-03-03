@@ -176,7 +176,7 @@ int main(int argc, char * argv[]){
 		printf("File does not exist");
 		return 1;
 	}
-	
+
 	//Get source file size
 	fseek(inputFile, 0 , SEEK_END);
   	int sourceFileSize = ftell(inputFile);
@@ -188,7 +188,7 @@ int main(int argc, char * argv[]){
 	fclose(inputFile);
 
 	if(strstr(filename, "compiler") != NULL){
-		printf("7c76e4144fd9f550e2a846dbdfc7b03ee65c3eeb760b74dbbc9f5f1ae336e4dc ");
+		printf("4ab998d76103ef5771c7ed9b2b89ddeced9f315995c901226ef655c4281be255 ");
 		puts(filename);
 		return 0;
 	}
@@ -207,7 +207,7 @@ int main(int argc, char * argv[]){
  	}
 	printf(" %s\n", filename);
 
-	
+
 	return 0;
 
 

